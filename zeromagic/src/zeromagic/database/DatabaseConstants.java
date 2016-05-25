@@ -1,4 +1,4 @@
-package zeromagic;
+package zeromagic.database;
 
 public class DatabaseConstants 
 {
