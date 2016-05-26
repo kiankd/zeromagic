@@ -7,15 +7,23 @@ import org.jsoup.nodes.Document;
 
 public abstract class AbstractHTMLParser 
 {
-	protected Document webpage;
-	protected HashMap<String, String> data;
+	public AbstractHTMLParser()
+	{
+	}
 	
-	protected void parseWebpage(String url)
+	protected Document webpage;
+	
+	protected void setDocument(String url)
 	{
 		try {
 			webpage = Jsoup.connect(url).get();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String docToString()
+	{
+		return webpage.toString();
 	}
 }

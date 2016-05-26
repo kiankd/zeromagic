@@ -6,8 +6,5 @@ import java.sql.Statement;
 
 public class CreateDB 
 {
-	public static void main(String[] args)
-	{
-		System.out.println("main runs");
-	}
+	
 }
