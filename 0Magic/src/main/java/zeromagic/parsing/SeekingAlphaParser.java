@@ -1,5 +1,7 @@
 package zeromagic.parsing;
 
+import org.sqlite.*;
+
 public class SeekingAlphaParser extends AbstractHTMLParser
 {
 	public SeekingAlphaParser()

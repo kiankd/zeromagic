@@ -1,7 +1,6 @@
 package zeromagic.parsing;
 
 import java.io.IOException;
-import java.util.HashMap;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -26,4 +25,5 @@ public abstract class AbstractHTMLParser
 	{
 		return webpage.toString();
 	}
+	
 }
