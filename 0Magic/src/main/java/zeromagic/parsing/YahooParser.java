@@ -19,7 +19,7 @@ public class YahooParser extends AbstractHTMLParser
 	 * This method parses the Yahoo finance stock table for the given stock name
 	 * and then returns a ParsedData object mapping the names of the stock info
 	 * columns to the values they correspond to.
-	 * @param stockName Uppercase name of a stock.
+	 * @param stockName UPPERCASE name of a stock.
 	 * @return ParsedData mapping.
 	 */
 	public ParsedData parseForStockData(String stockName)
@@ -82,12 +82,12 @@ public class YahooParser extends AbstractHTMLParser
 	 */
 	public static ArrayList<String> getColumnNames()
 	{
-		YahooParser parser = new YahooParser();
-		parser.setDocument(YAHOO_STOCK_URL + "GOOGL");
+		YahooParser parser = new YahooParser(YAHOO_STOCK_URL + "GOOGL");
 		Elements tableHeads = parser.webpage.select(YAHOO_TABLE_HEADER_CLASS);
 		ArrayList<String> columnNames = new ArrayList<String>();
-		for (Element e : tableHeads) 
+		for (Element e : tableHeads) {
 			columnNames.add(e.text());
+		}
 		return columnNames;
 	}
 	
