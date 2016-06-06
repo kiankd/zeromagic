@@ -1,5 +1,7 @@
-import java.util.ArrayList;
+package zeromagic.parsing;
 
+import java.util.ArrayList;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import zeromagic.parsing.AbstractHTMLParser;
 import zeromagic.datastructures.ParsedData;
@@ -74,11 +76,19 @@ public class YahooParser extends AbstractHTMLParser
 		System.out.println("This table is "+tableHeads.size()+" by "+tableData.size());
 	}
 	
+	/**
+	 * Gets the correctly ordered list of column names from Yahoo finance based on example stock (GOOGL).
+	 * @return ArrayList of column names (i.e., Market cap, 4-month high etc.)
+	 */
 	public static ArrayList<String> getColumnNames()
 	{
 		YahooParser parser = new YahooParser();
-		ParsedData data = parser.parseForStockData("GOOGL");
-		return new ArrayList<String>(data.keySet());
+		parser.setDocument(YAHOO_STOCK_URL + "GOOGL");
+		Elements tableHeads = parser.webpage.select(YAHOO_TABLE_HEADER_CLASS);
+		ArrayList<String> columnNames = new ArrayList<String>();
+		for (Element e : tableHeads) 
+			columnNames.add(e.text());
+		return columnNames;
 	}
 	
 	public static void main(String[] args) 
