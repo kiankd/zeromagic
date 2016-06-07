@@ -9,6 +9,12 @@ import zeromagic.datastructures.ParsedData;
 public class YahooParser extends AbstractHTMLParser 
 {
 	private static String YAHOO_STOCK_URL = "https://finance.yahoo.com/q/ks?s=";
+	private static String YAHOO_HISTORICAL_STOCK_START = "https://finance.yahoo.com/q/hp?s=";
+	private static String YAHOO_HISTORICAL_STOCK_END = "+Historical+Prices";
+	// maybe change historical to variation of below to exact time span:
+	// https://finance.yahoo.com/q/hp?s=STOCK_NAME&a=00&b=19&c=2004&d=05&e=7&f=2016&g=m&z=66&y=0
+	// problem is that it only shows stock values, not the other info
+	
 	private static String YAHOO_TABLE_HEADER_CLASS = ".yfnc_tablehead1";
 	private static String YAHOO_TABLE_DATA_CLASS = ".yfnc_tabledata1";
 	
@@ -22,7 +28,7 @@ public class YahooParser extends AbstractHTMLParser
 	 * @param stockName UPPERCASE name of a stock.
 	 * @return ParsedData mapping.
 	 */
-	public ParsedData parseForStockData(String stockName)
+	public ParsedData parseForCurrentStockData(String stockName)
 	{
 		setDocument(YAHOO_STOCK_URL + stockName);
 		Elements tableHeads = webpage.select(YAHOO_TABLE_HEADER_CLASS);
@@ -38,6 +44,12 @@ public class YahooParser extends AbstractHTMLParser
 		}
 		
 		return parsedData;
+	}
+	
+	public ParsedData parseForHistoricalStockData(String stockName, int monthsBack)
+	{
+		setDocument(YAHOO_HISTORICAL_STOCK_START + stockName + YAHOO_HISTORICAL_STOCK_END);
+		return null;
 	}
 	
 	public void testParseForStockData(String stockName, Boolean verbose)
@@ -93,8 +105,6 @@ public class YahooParser extends AbstractHTMLParser
 	
 	public static void main(String[] args) 
 	{
-		YahooParser parser = new YahooParser();
-		parser.testParseForStockData("AIG", false);
 		System.out.println(getColumnNames());
 	}
 }
