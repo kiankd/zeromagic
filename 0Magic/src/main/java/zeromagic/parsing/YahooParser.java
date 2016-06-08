@@ -18,7 +18,7 @@ public class YahooParser extends AbstractHTMLParser
 	private static String YAHOO_TABLE_HEADER_CLASS = ".yfnc_tablehead1";
 	private static String YAHOO_TABLE_DATA_CLASS = ".yfnc_tabledata1";
 	
-	public YahooParser() { super(); }	
+	public YahooParser() { super(); }
 	public YahooParser(String url) { super(url); }
 	
 	/**
@@ -106,5 +106,7 @@ public class YahooParser extends AbstractHTMLParser
 	public static void main(String[] args) 
 	{
 		System.out.println(getColumnNames());
+		String s = "0123456789";
+		System.out.println(s.substring(0,5));
 	}
 }
