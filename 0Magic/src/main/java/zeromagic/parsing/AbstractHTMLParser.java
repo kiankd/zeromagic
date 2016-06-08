@@ -40,4 +40,24 @@ public abstract class AbstractHTMLParser
 		return webpage.toString();
 	}
 	
+	// --------------- String Fixing --------- //
+	public static String fixForSQL(String arg)
+	{
+		String temp = "_" + arg.replaceAll("[!/@#,$^&*+:=`]", "").replace(" ", "_").replace("%", "percent").replace("-", "");
+		
+		int stop = 0;
+		for(int i = 0; i < temp.length(); i++)
+		{
+			if (temp.charAt(i) == '(')
+			{
+				stop = i;
+				break;
+			}
+		}
+		if(stop !=0)
+		{
+			return temp.substring(0, stop);
+		}
+		return temp;
+	}
 }

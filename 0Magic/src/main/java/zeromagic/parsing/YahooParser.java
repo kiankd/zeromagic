@@ -73,7 +73,7 @@ public class YahooParser extends AbstractHTMLParser
 		
 		for (int i=0; i<tableHeads.size(); i++)
 		{
-			myData.put(tableHeads.get(i).text(), tableData.get(i).text());
+			myData.put(fixForSQL(tableHeads.get(i).text()), tableData.get(i).text());
 		}
 		
 		if (verbose)
@@ -98,7 +98,7 @@ public class YahooParser extends AbstractHTMLParser
 		Elements tableHeads = parser.webpage.select(YAHOO_TABLE_HEADER_CLASS);
 		ArrayList<String> columnNames = new ArrayList<String>();
 		for (Element e : tableHeads) {
-			columnNames.add(e.text());
+			columnNames.add(fixForSQL(e.text()));
 		}
 		return columnNames;
 	}
