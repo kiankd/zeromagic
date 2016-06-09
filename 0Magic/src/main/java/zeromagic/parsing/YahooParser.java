@@ -1,11 +1,14 @@
 package zeromagic.parsing;
 
-import java.util.ArrayList;
+import java.sql.Date;
+
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import zeromagic.parsing.AbstractHTMLParser;
 import zeromagic.datastructures.ParsedData;
+import zeromagic.datastructures.ZDate;
 
+@SuppressWarnings("unused")
 public class YahooParser extends AbstractHTMLParser 
 {
 	private static String YAHOO_STOCK_URL = "https://finance.yahoo.com/q/ks?s=";
@@ -46,15 +49,25 @@ public class YahooParser extends AbstractHTMLParser
 		return parsedData;
 	}
 	
-	public ParsedData parseForHistoricalStockData(String stockName, int monthsBack)
+	public ParsedData parseForHistoricalStockData(String stockName, ZDate start, ZDate end)
 	{
-		setDocument(YAHOO_HISTORICAL_STOCK_START + stockName + YAHOO_HISTORICAL_STOCK_END);
+		String endOfUrl = "&a=" + start.m + 
+						  "&b=" + start.d + 
+						  "&c=" + start.y +
+						  "&d=" + end.m +
+						  "&e=" + end.d +
+						  "&f=" + end.y + 
+						  "&g=d&z=66&y=0"; // change g=w for weekly, g=m for monthly
+		
+		
+		
+		
 		return null;
 	}
 	
 	public static void main(String[] args) 
 	{
-		String s = "0123456789";
+		String s = 144+"0123456789"+5;
 		System.out.println(s.substring(0,5));
 	}
 }
