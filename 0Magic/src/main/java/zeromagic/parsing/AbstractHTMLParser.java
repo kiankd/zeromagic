@@ -27,6 +27,8 @@ public abstract class AbstractHTMLParser
 	 */
 	public void setDocument(String url)
 	{
+		System.out.println("Connecting to website: "+url);
+		
 		try {
 			webpage = Jsoup.connect(url).get();
 		} catch (IOException e) {
