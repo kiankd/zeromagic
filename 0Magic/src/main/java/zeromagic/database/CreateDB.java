@@ -5,54 +5,71 @@ import java.sql.DriverManager;
 
 public class CreateDB 
 {
-//	public static enum YahooColumn
-//	{
-//		_Market_Cap_, 
-//		_Enterprise_Value_, 
-//		_Trailing_PE_, 
-//		_Forward_PE_, 
-//		_PEG_Ratio_, 
-//		_PriceSales_, 
-//		_PriceBook_, 
-//		_Enterprise_ValueRevenue_, 
-//		_Enterprise_ValueEBITDA_, 
-//		_Fiscal_Year_Ends, 
-//		_Most_Recent_Quarter_, 
-//		_Profit_Margin_, 
-//		_Operating_Margin_, 
-//		_Return_on_Assets_, 
-//		_Return_on_Equity_, 
-//		_Revenue_, 
-//		_Revenue_Per_Share_, 
-//		_Qtrly_Revenue_Growth_, 
-//		_Gross_Profit_, 
-//		_EBITDA_, 
-//		_Net_Income_Avl_to_Common_, 
-//		_Diluted_EPS_, 
-//		_Qtrly_Earnings_Growth_, 
-//		_Total_Cash_, 
-//		_Total_Cash_Per_Share_, 
-//		_Total_Debt_, 
-//		_Total_DebtEquity_, 
-//		_Current_Ratio_, 
-//		_Book_Value_Per_Share_, 
-//		_Operating_Cash_Flow_, 
-//		_Levered_Free_Cash_Flow_, 
-//		_Beta, 
-//		_Week_Change, 
-//		_SP_Week_Change, 
-//		_Week_High_, 
-//		_Week_Low_, 
-//		_Day_Moving_Average,
-//		_Avg_Vol_,
-//		_Shares_Outstanding, 
-//		_Float, 
-//		_percent_Held_by_Insiders, 
-//		_percent_Held_by_Institutions, 
-//		_Shares_Short_, 
-//		_Short_Ratio_, _Short_percent_of_Float_, _Shares_Short_, _Forward_Annual_Dividend_Rate, _Forward_Annual_Dividend_Yield, _Trailing_Annual_Dividend_Yield, _Trailing_Annual_Dividend_Yield, __Year_Average_Dividend_Yield, _Payout_Ratio, _Dividend_Date, _ExDividend_Date, _Last_Split_Factor_, _Last_Split_Date;
-//	}
+	/**57 enums, one for each column in the Yahoo table.
+	 * NOTE: On yahoo finance there are 58 fields, since there are two fields 
+	 * for Trailing Annual Dividend Yield. ParsedData class only considers one of them**/
+	public static enum YahooColumnsCurrent
+	{
+		_5_Year_Average_Dividend_Yield4, 
+		_Total_Cash_Per_Share_, 
+		_SP500_52Week_Change3, 
+		_Short_Ratio_, 
+		_Float, 
+		_Trailing_Annual_Dividend_Yield3, 
+		_50Day_Moving_Average3, 
+		_52Week_Change3, 
+		_ExDividend_Date4, 
+		_Gross_Profit_, 
+		_Operating_Cash_Flow_, 
+		_PriceSales_, 
+		_Qtrly_Revenue_Growth_, 
+		_Qtrly_Earnings_Growth_, 
+		_Forward_Annual_Dividend_Yield4, 
+		_Most_Recent_Quarter_, 
+		_Last_Split_Date3, 
+		_Beta, _Current_Ratio_, 
+		_Dividend_Date3, 
+		_52Week_Low_, 
+		_Shares_Outstanding5, 
+		_Revenue_, 
+		_Total_Debt_, 
+		_Profit_Margin_, 
+		_Operating_Margin_, 
+		_Levered_Free_Cash_Flow_, 
+		_PEG_Ratio_, 
+		_percent_Held_by_Insiders1, 
+		_Trailing_PE_, 
+		_200Day_Moving_Average3, 
+		_Short_percent_of_Float_, 
+		_Shares_Short__prior_month_3, 
+		_Last_Split_Factor_, 
+		_Return_on_Equity_, 
+		_EBITDA_, 
+		_Total_DebtEquity_, 
+		_PriceBook_, 
+		_Forward_PE_, 
+		_Revenue_Per_Share_, 
+		_Avg_Vol__10_day_3, 
+		_Enterprise_ValueRevenue_, 
+		_Diluted_EPS_, 
+		_Total_Cash_, 
+		_Forward_Annual_Dividend_Rate4, 
+		_Enterprise_Value_, 
+		_Market_Cap_, 
+		_52Week_High_, 
+		_percent_Held_by_Institutions1, 
+		_Avg_Vol__3_month_3, 
+		_Return_on_Assets_, 
+		_Shares_Short_, 
+		_Net_Income_Avl_to_Common_, 
+		_Payout_Ratio4, 
+		_Book_Value_Per_Share_, 
+		_Enterprise_ValueEBITDA_, 
+		_Fiscal_Year_Ends;
+	}
 	
+	public static enum YahooColumnsHistoric{}
+		
 	public static void create()
 	{
 		/**First create the yahoo table**/
@@ -66,5 +83,10 @@ public class CreateDB
 	      System.exit(0);
 	    }
 	    System.out.println("Opened database successfully");
+	}
+	
+	public static void main(String[] args)
+	{
+	
 	}
 }

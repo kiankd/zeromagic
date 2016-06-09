@@ -64,10 +64,4 @@ public class YahooParser extends AbstractHTMLParser
 		
 		return null;
 	}
-	
-	public static void main(String[] args) 
-	{
-		String s = 144+"0123456789"+5;
-		System.out.println(s.substring(0,5));
-	}
 }
