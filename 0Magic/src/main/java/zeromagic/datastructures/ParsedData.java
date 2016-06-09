@@ -3,6 +3,7 @@ package zeromagic.datastructures;
 import java.util.ArrayList;
 import java.util.HashMap;
 import zeromagic.parsing.AbstractHTMLParser;
+import zeromagic.parsing.YahooParser;
 
 public class ParsedData extends HashMap<String, String>
 {	
@@ -18,4 +19,10 @@ public class ParsedData extends HashMap<String, String>
 	{
 		return new ArrayList<String>(keySet());
 	}
+	
+//	public static void main(String[] args)
+//	{
+//		YahooParser yp = new YahooParser();
+//		System.out.println(yp.parseForCurrentStockData("AAPL").getColumns());
+//	}
 }

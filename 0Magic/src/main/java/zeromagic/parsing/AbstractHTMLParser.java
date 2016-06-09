@@ -46,17 +46,25 @@ public abstract class AbstractHTMLParser
 		String temp = "_" + arg.replaceAll("[!/@#,$^&*+:=`]", "").replace(" ", "_").replace("%", "percent").replace("-", "");
 		
 		int stop = 0;
-		for(int i = 0; i < temp.length(); i++)
+		//This condition retains the text in parentheses for Avg Vol and Shares Short (prior month) to avoid duplication
+		if(!(temp.contains("Avg_Vol") || (temp.contains("prior_month"))))
 		{
-			if (temp.charAt(i) == '(')
+			for(int i = 0; i < temp.length(); i++)
 			{
-				stop = i;
-				break;
+				if (temp.charAt(i) == '(')
+				{
+					stop = i;
+					break;
+				}
+			}
+			if(stop !=0)
+			{
+				temp = temp.substring(0, stop);
 			}
 		}
-		if(stop !=0)
+		else
 		{
-			return temp.substring(0, stop);
+			temp = temp.replace('(', '_').replace(')', '_');
 		}
 		return temp;
 	}
