@@ -52,60 +52,8 @@ public class YahooParser extends AbstractHTMLParser
 		return null;
 	}
 	
-	public void testParseForStockData(String stockName, Boolean verbose)
-	{
-		setDocument(YAHOO_STOCK_URL + stockName);
-		Elements tableHeads = webpage.select(".yfnc_tablehead1");
-		Elements tableData = webpage.select(".yfnc_tabledata1");
-
-		if (verbose)
-		{
-			System.out.println(tableHeads);
-			System.out.println(tableData);
-			System.out.println(tableHeads.size() == tableData.size());
-			System.out.println(tableHeads.size());
-			System.out.println(tableData.size());
-		}
-			
-		assert tableHeads.size() == tableData.size();
-		
-		ParsedData myData = new ParsedData();
-		
-		for (int i=0; i<tableHeads.size(); i++)
-		{
-			myData.put(fixForSQL(tableHeads.get(i).text()), tableData.get(i).text());
-		}
-		
-		if (verbose)
-		{
-			for (String key : myData.keySet())
-			{
-				System.out.print(key+" ---> ");
-				System.out.println(myData.get(key));
-			}
-		}
-		
-		System.out.println("This table is "+tableHeads.size()+" by "+tableData.size());
-	}
-	
-	/**
-	 * Gets the correctly ordered list of column names from Yahoo finance based on example stock (GOOGL).
-	 * @return ArrayList of column names (i.e., Market cap, 4-month high etc.)
-	 */
-	public static ArrayList<String> getColumnNames()
-	{
-		YahooParser parser = new YahooParser(YAHOO_STOCK_URL + "GOOGL");
-		Elements tableHeads = parser.webpage.select(YAHOO_TABLE_HEADER_CLASS);
-		ArrayList<String> columnNames = new ArrayList<String>();
-		for (Element e : tableHeads) {
-			columnNames.add(fixForSQL(e.text()));
-		}
-		return columnNames;
-	}
-	
 	public static void main(String[] args) 
 	{
-		System.out.println(getColumnNames());
 		String s = "0123456789";
 		System.out.println(s.substring(0,5));
 	}
