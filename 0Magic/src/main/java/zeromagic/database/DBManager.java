@@ -2,10 +2,20 @@ package zeromagic.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class CreateDB 
+public class DBManager 
 {
-	/**57 enums, one for each column in the Yahoo table.
+	private static Connection CONNECTION;
+	private static PreparedStatement CREATE_TABLE;
+	public DBManager() throws SQLException, ClassNotFoundException
+	{
+		Class.forName("org.sqlite.JDBC");
+		CONNECTION = DriverManager.getConnection("jdbc:sqlite:zeromagic.db");
+		CREATE_TABLE= CONNECTION.prepareStatement("CREATE TABLE ?");
+	}
+	/**57 enums, one for each column in the Yahoo Current table.
 	 * NOTE: On yahoo finance there are 58 fields, since there are two fields 
 	 * for Trailing Annual Dividend Yield. ParsedData class only considers one of them**/
 	public static enum YahooColumnsCurrent
@@ -68,25 +78,43 @@ public class CreateDB
 		_Fiscal_Year_Ends;
 	}
 	
-	public static enum YahooColumnsHistoric{}
-		
-	public static void create()
+	public static enum YahooColumnsHistoric
 	{
-		/**First create the yahoo table**/
+		/**PUT HISTORIC COLUMNS!**/
+	}
 		
-		Connection c = null;
+	public void createTables()
+	{
 	    try {
-	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:zeromagic.db");
+	      /**First create the current yahoo table**/
+	    
+	    String createYahooTable = "yahoocurrent(";
+	    	
+	    for(YahooColumnsCurrent y : YahooColumnsCurrent.values())
+	      {
+	    	  createYahooTable += y.toString() + " varchar(50),";
+	      }
+	      createYahooTable += ");";
+	      
+	      CREATE_TABLE.setString(0, createYahooTable);
+	      CREATE_TABLE.execute();
+	      
 	    } catch ( Exception e ) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	      System.exit(0);
 	    }
-	    System.out.println("Opened database successfully");
+	    System.out.println("columns created successfully");
 	}
 	
 	public static void main(String[] args)
 	{
-	
+		try{
+			DBManager dbm = new DBManager();
+			dbm.createTables();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getClass());
+		}
 	}
 }
