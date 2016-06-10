@@ -5,20 +5,50 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DBManager 
+public class DBCreator 
 {
 	private static Connection CONNECTION;
-	private static PreparedStatement CREATE_TABLE;
-	public DBManager() throws SQLException, ClassNotFoundException
+	public DBCreator()
 	{
-		Class.forName("org.sqlite.JDBC");
-		CONNECTION = DriverManager.getConnection("jdbc:sqlite:zeromagic.db");
-		CREATE_TABLE= CONNECTION.prepareStatement("CREATE TABLE ?");
+		try{
+			Class.forName("org.sqlite.JDBC");
+			CONNECTION = DriverManager.getConnection("jdbc:sqlite:zeromagic.db");
+			createTables();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
 	}
 	/**57 enums, one for each column in the Yahoo Current table.
 	 * NOTE: On yahoo finance there are 58 fields, since there are two fields 
 	 * for Trailing Annual Dividend Yield. ParsedData class only considers one of them**/
-	public static enum YahooColumnsCurrent
+	
+	
+	public static enum YahooColumnsHistoric
+	{
+		/**PUT HISTORIC COLUMNS!**/
+	}
+		
+	private void createTables() throws SQLException
+	{
+	    /*First yahoocurrent...*/
+		String YCurrCreate = "CREATE TABLE yahoocurrent(";
+		for(YahooColumnsCurrent y : YahooColumnsCurrent.values())
+		{
+			YCurrCreate += y.toString() + " varchar(50),";
+		}
+		YCurrCreate = YCurrCreate.substring(0, YCurrCreate.length()-1);
+		YCurrCreate += ")";
+		CONNECTION.createStatement().execute(YCurrCreate);
+	}
+	
+	public static void main(String[] args)
+	{
+		DBCreator dbc = new DBCreator();
+	}
+	
+	private static enum YahooColumnsCurrent
 	{
 		_5_Year_Average_Dividend_Yield4, 
 		_Total_Cash_Per_Share_, 
@@ -76,45 +106,5 @@ public class DBManager
 		_Book_Value_Per_Share_, 
 		_Enterprise_ValueEBITDA_, 
 		_Fiscal_Year_Ends;
-	}
-	
-	public static enum YahooColumnsHistoric
-	{
-		/**PUT HISTORIC COLUMNS!**/
-	}
-		
-	public void createTables()
-	{
-	    try {
-	      /**First create the current yahoo table**/
-	    
-	    String createYahooTable = "yahoocurrent(";
-	    	
-	    for(YahooColumnsCurrent y : YahooColumnsCurrent.values())
-	      {
-	    	  createYahooTable += y.toString() + " varchar(50),";
-	      }
-	      createYahooTable += ");";
-	      
-	      CREATE_TABLE.setString(0, createYahooTable);
-	      CREATE_TABLE.execute();
-	      
-	    } catch ( Exception e ) {
-	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-	      System.exit(0);
-	    }
-	    System.out.println("columns created successfully");
-	}
-	
-	public static void main(String[] args)
-	{
-		try{
-			DBManager dbm = new DBManager();
-			dbm.createTables();
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getClass());
-		}
 	}
 }
