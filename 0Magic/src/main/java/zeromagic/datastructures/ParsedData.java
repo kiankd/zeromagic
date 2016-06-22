@@ -2,9 +2,11 @@ package zeromagic.datastructures;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import zeromagic.database.DBColumn;
 import zeromagic.parsing.AbstractHTMLParser;
 
-public class ParsedData extends HashMap<String, String>
+public class ParsedData extends HashMap<DBColumn, String>
 {	
 	/**
 	 * 
@@ -13,32 +15,32 @@ public class ParsedData extends HashMap<String, String>
 
 	public ParsedData(){}
 	
-	@Override
 	public String put(String key, String value)
 	{
-		return super.put(AbstractHTMLParser.fixForSQL(key), value);
+		return super.put(DBColumn.get(key), value);
 	}
 	
 	@Override
 	public String toString()
 	{
 		String s = "[";
-		for (String key : keySet())
+		for (DBColumn key : keySet())
 		{
-			s += key + ": " + get(key) + ", ";
+			s += key.toString() + ": " + get(key) + ", ";
 		}
 		s = s.substring(0, s.length()-2) + "]";
 		return s;
 	}
 	
-	public ArrayList<String> getColumns()
+	public ArrayList<DBColumn> getColumns()
 	{
-		return new ArrayList<String>(keySet());
+		return new ArrayList<DBColumn>(keySet());
 	}
+}		
 	
 //	public static void main(String[] args)
 //	{
 //		YahooParser yp = new YahooParser();
 //		System.out.println(yp.parseForCurrentStockData("AAPL").getColumns());
 //	}
-}
+
